@@ -1,3 +1,5 @@
 # Segunda Pre-Entrega
 
-![Primera Imagen](https://morande-my.sharepoint.com/:i:/g/personal/jvalencia_chileangrapegroup_com/EccOm9xIcLREq5-8V59AdW8BGmylWS06Wrmz8Jg8TbGeEQ?e=TBXW5U)
+![Primera Imagen](./assets/Captura%20de%20pantalla%202023-09-27%20a%20la(s)%2011.52.17.png)
+![Primera Imagen](./assets/Captura%20de%20pantalla%202023-09-27%20a%20la(s)%2011.53.14.png)
+![Primera Imagen](./assets/Captura%20de%20pantalla%202023-09-27%20a%20la(s)%2012.02.45.png)
