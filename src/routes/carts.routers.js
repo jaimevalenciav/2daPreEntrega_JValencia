@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
 
         res.send({ result: "Success", carts: result.docs, totalCarts: result.total });
     } catch (error) {
+        console.log(error)
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al obtener los carritos paginados." });
     }
 });
