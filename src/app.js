@@ -3,12 +3,21 @@ const mongoose = require('mongoose')
 const userRouter = require("./routes/users.routers")
 const productRouter = require("./routes/products.routers")
 const cartRouter = require("./routes/carts.routers")
+const handlebars = require("express-handlebars")
 const { generateToken, authToken } = require("../utils")
+const bodyParser = require('body-parser');
 const PRIVATE_KEY = "CoderKey"
 const app = express()
 const port = 8080
 
 app.use(express.json())
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.engine('handlebars', handlebars.engine())
+app.set('views', __dirname + '/../views')
+app.set('view engine', 'handlebars')
 
 const users = []
 
@@ -26,14 +35,15 @@ app.post('/register', (req, res) => {
     res.send({status: "success", access_token})
 })
 
-app.post('/login', (req, res) => {
-    const {email, password} = req.body
-    const user = user.find(user => user.mail === email && user.password === password)
+/* app.post('/login', (req, res) => {
+    const {email, password} = req.body    
+    const user = users.find(user => user.mail === email && user.password === password)
+    console.log(user)
     if(!user) return res.status(400).send({status: "error", error:"Credencial inválida"})
 
     const access_token = generateToken(user)
     res.send({status: "success", access_token})
-})
+}) */
 
 app.get("/current", authToken ,(req, res) =>{
     res.send({status: "success", payload: req.user})
@@ -57,7 +67,9 @@ mongoose.connect('mongodb+srv://jaimevalenciav:Infoadmin08@ecommerce.rt5ptyc.mon
     app.use("/api/users", userRouter);
     app.use("/api/products", productRouter);
     app.use("/api/carts", cartRouter);
-
+    
+    
+    app.use(express.json());
 
 
 

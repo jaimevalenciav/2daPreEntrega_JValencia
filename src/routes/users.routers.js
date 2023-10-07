@@ -1,7 +1,9 @@
-const { Router } = require('express')
-const {userModel} = require('../models/users.model')
-
-const router = Router ()
+const express = require('express')
+const { userModel } = require('../models/users.model')
+const jwt = require('jsonwebtoken')
+const { createHash, isValidatePassword} = require('../../utils')
+const passport = require('passport')
+const router = express.Router ()
 
 router.get("/", async(req, res) => {
     try {
@@ -10,6 +12,9 @@ router.get("/", async(req, res) => {
     } catch (error) {
         console.log(error)
     }
+})
+router.get("/login", async(req, res) =>{
+    res.render("login")
 })
 
 router.post("/", async(req, res) => {
@@ -39,4 +44,24 @@ router.delete("/:uid", async(req, res) => {
     res.send({result: "Success", payload: result})
 })
 
-module.exports = router
+router.get("/failregister", (req, res) => {
+    console.log("Falla en autenticación")
+    res.send({error: "Falla en autenticación"})
+})
+
+router.post("/login", (req, res) => {
+    const {email, password} = req.body
+    console.log("pasa por aqui")
+    if(email == "jvalencia@mail.com" && password == "passcoder"){
+        let token = jwt.sign({email, password}, "coderSecret", {expiresIn: "24h"})
+        res.cookie("coderCookieToken", token, {
+            maxAge: 60*60*1000,
+            httpOnly: true
+        }).send({message: "Logueado exitosamente en el sistema" })
+    }else {
+        res.render("failregister")
+    }
+})
+
+
+module.exports = router 

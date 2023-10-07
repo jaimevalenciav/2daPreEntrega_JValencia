@@ -7,19 +7,20 @@ const jwt = require('passport-jwt')
 const localStrategy = local.strategy
 
 const cookieExtractor = req => {
-    let token = nullif (req && req.cooies){
-        token = req.cookies["coderCokkieToken"]
+    let token = null
+    if (req && req.cookies){
+        token = req.cookies["coderCookieToken"]
     }
     return token
 }
 
 const JWTStrategy = jwt.Strategy
-const ExtractJWT = jwt.ExtractJWT
+const ExtractJWT = jwt.ExtractJwt
 
 const initializePassport = () =>{
     passport.use("jwt", new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: "CoderSecret"
+        secretOrKey: "passcoder"
     }, async(jwt_payload, done) => {
         try {
             return done(null, jwt_payload)
