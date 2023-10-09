@@ -51,7 +51,7 @@ router.get("/failregister", (req, res) => {
 
 router.post("/login", (req, res) => {
     const {email, password} = req.body
-    console.log("pasa por aqui")
+    
     if(email == "jvalencia@mail.com" && password == "passcoder"){
         let token = jwt.sign({email, password}, "coderSecret", {expiresIn: "24h"})
         res.cookie("coderCookieToken", token, {
@@ -61,6 +61,10 @@ router.post("/login", (req, res) => {
     }else {
         res.render("failregister")
     }
+})
+
+router.get("/current", passport.authenticate("jwt", {session: false}), (req, res) =>{
+    res.send(req.user) 
 })
 
 

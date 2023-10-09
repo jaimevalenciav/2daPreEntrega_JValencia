@@ -1,7 +1,7 @@
 const passport = require('passport')
 const local = require('passport-local')
-const userService = require("./models/user")
-const { createHash, isValidatePassword } = require("./../utils")
+const userService = require("../models/users.model")
+const { createHash, isValidatePassword } = require("../../utils")
 const jwt = require('passport-jwt')
 
 const localStrategy = local.strategy
@@ -21,12 +21,14 @@ const initializePassport = () =>{
     passport.use("jwt", new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
         secretOrKey: "passcoder"
+        
     }, async(jwt_payload, done) => {
         try {
             return done(null, jwt_payload)
         } catch (error) {
             return done(error)
         }
+        
     }
     ))
 }

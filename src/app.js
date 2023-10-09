@@ -6,11 +6,19 @@ const cartRouter = require("./routes/carts.routers")
 const handlebars = require("express-handlebars")
 const { generateToken, authToken } = require("../utils")
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const initializePassport = require('../src/config/passport.js')
+const cookieParser = require('cookie-parser')
 const PRIVATE_KEY = "CoderKey"
 const app = express()
 const port = 8080
 
 app.use(express.json())
+
+initializePassport(passport)
+app.use(passport.initialize())
+app.set(passport.session())
+app.use(cookieParser())
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
