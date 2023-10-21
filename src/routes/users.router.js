@@ -1,23 +1,29 @@
-const express = require('express')
-const { userModel } = require('../models/users.model')
-const jwt = require('jsonwebtoken')
-const { createHash, isValidatePassword} = require('../../utils')
-const passport = require('passport')
-const router = express.Router ()
 
-router.get("/", async(req, res) => {
+import express from 'express'
+//const { userModel } = require('../models/users.model')
+import { Router } from 'express'
+import { getUsers, getUserById, saveUser } from '../controllers/users.controller.js'
+import jwt from 'jsonwebtoken'
+import {createHash, isValidatePassword } from '../../utils.js'
+import passport from 'passport'
+//import router from express.Router
+
+
+const router = Router()
+
+/* router.get("/", async(req, res) => {
     try {
         let users = await userModel.find()
         res.send({result: "success", payload: users})
     } catch (error) {
         console.log(error)
     }
-})
-router.get("/login", async(req, res) =>{
+}) */
+/* router.get("/login", async(req, res) =>{
     res.render("login")
-})
+}) */
 
-router.post("/", async(req, res) => {
+/* router.post("/", async(req, res) => {
     let { nombre, apellido, email} = req.body
     if (!nombre || !apellido || !email) {
         response.send({status: error, error: "Faltan parámetros"})
@@ -25,9 +31,9 @@ router.post("/", async(req, res) => {
 
     let result = await userModel.create({nombre, apellido, email})
     res.send({result: "Success", payload: result})
-})
+}) */
 
-router.put("/:uid", async(req, res) =>{
+/* router.put("/:uid", async(req, res) =>{
     let { uid } = req.params
 
     let userToReplace = req.body
@@ -36,20 +42,20 @@ router.put("/:uid", async(req, res) =>{
     }
     let result = await userModel.updateOne({_id: uid}, userToReplace)
     res.send({result: "Success", payload: result})
-})
+}) */
 
-router.delete("/:uid", async(req, res) => {
+/* router.delete("/:uid", async(req, res) => {
     let uid = req.params
     let result = await userModel.deleteOne({_id: uid})
     res.send({result: "Success", payload: result})
-})
+}) */
 
-router.get("/failregister", (req, res) => {
+/* router.get("/failregister", (req, res) => {
     console.log("Falla en autenticación")
     res.send({error: "Falla en autenticación"})
-})
+}) */
 
-router.post("/login", (req, res) => {
+/* router.post("/login", (req, res) => {
     const {email, password} = req.body
     
     if(email == "jvalencia@mail.com" && password == "passcoder"){
@@ -61,11 +67,15 @@ router.post("/login", (req, res) => {
     }else {
         res.render("failregister")
     }
-})
+}) */
 
-router.get("/current", passport.authenticate("jwt", {session: false}), (req, res) =>{
+/* router.get("/current", passport.authenticate("jwt", {session: false}), (req, res) =>{
     res.send(req.user) 
-})
+}) */
 
 
-module.exports = router 
+router.get("/", getUsers)
+router.get("/", getUserById)
+router.post("/", saveUser)
+
+export default router

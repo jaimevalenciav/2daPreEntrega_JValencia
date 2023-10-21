@@ -1,11 +1,19 @@
-const {Router} = require('express')
-const {productModel} = require('../models/products.model')
+import { Router } from 'express'
+import {getProducts, getProductsById, createProducts, addProduct} from '../controllers/products.controllers.js'
+
+
+
 
 const router = Router()
 
+router.get("/", getProducts)
+router.get("/:pid", getProductsById)
+router.post("/", createProducts)
+router.post("/:pid/product", addProduct)
 
 
-router.get("/", async (req, res) => {
+
+/* router.get("/", async (req, res) => {
     try {
         const { sort, category, limit } = req.query;
         const query = {};
@@ -31,10 +39,14 @@ router.get("/", async (req, res) => {
         console.error(error);
         res.status(500).send({ result: "error", message: "Ha ocurrido un error al obtener los productos." });
     }
-});
+}); */
+
+/* router.get('/',
+    productsController.getProducts
+    ) */
 
 
-router.post("/", async(req, res) => {
+/* router.post("/", async(req, res) => {
     let { id, name, description, features, price, keywords, url, category, subcategory} = req.body
     if (!id || !name || !description || !features || !price || !keywords || !url || !category || !subcategory) {
         res.send({status: error, error: "Faltan parámetros"})
@@ -42,8 +54,12 @@ router.post("/", async(req, res) => {
 
     let result = await productModel.create({id, name, description, features, price, keywords, url, category, subcategory})
     res.send({result: "Success", payload: result})
-})
+}) */
 
+/* router.get('/',
+    productsController.createProduct
+    ) */
+/* 
 router.put("/:pid", async(req, res) =>{
     let { pid } = req.params
 
@@ -53,13 +69,12 @@ router.put("/:pid", async(req, res) =>{
     }
     let result = await productModel.updateOne({_id: pid}, productToReplace)
     res.send({result: "Success", payload: result})
-})
+}) */
 
-router.delete("/:pid", async(req, res) => {
+/* router.delete("/:pid", async(req, res) => {
     let pid = req.params
     let result = await productModel.deleteOne({_id: pid})
     res.send({result: "Success", payload: result})
-})
+}) */
 
-
-module.exports = router
+export default router

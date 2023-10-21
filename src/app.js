@@ -1,4 +1,10 @@
-const express = require('express')
+import express from 'express'
+import mongoose from 'mongoose'
+import userRouter from './routes/users.router.js'
+import productRouter from './routes/products.router.js'
+import cartRouter from './routes/carts.router.js'
+
+/* const express = require('express')
 const mongoose = require('mongoose')
 const userRouter = require("./routes/users.routers")
 const productRouter = require("./routes/products.routers")
@@ -8,12 +14,12 @@ const { generateToken, authToken } = require("../utils")
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const initializePassport = require('../src/config/passport.js')
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')*/
 const PRIVATE_KEY = "CoderKey"
 const app = express()
-const port = 8080
+const port = 8080 
 
-app.use(express.json())
+/* app.use(express.json())
 
 initializePassport(passport)
 app.use(passport.initialize())
@@ -25,9 +31,9 @@ app.use(bodyParser.json());
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/../views')
-app.set('view engine', 'handlebars')
+app.set('view engine', 'handlebars') */
 
-const users = []
+/* const users = []
 
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body
@@ -41,7 +47,7 @@ app.post('/register', (req, res) => {
 
     const access_token = generateToken(user)
     res.send({status: "success", access_token})
-})
+}) */
 
 /* app.post('/login', (req, res) => {
     const {email, password} = req.body    
@@ -53,10 +59,10 @@ app.post('/register', (req, res) => {
     res.send({status: "success", access_token})
 }) */
 
-app.get("/current", authToken ,(req, res) =>{
+/* app.get("/current", authToken ,(req, res) =>{
     res.send({status: "success", payload: req.user})
     console.log
-})
+}) */
 
 app.listen(port, () => {
     console.log(`Server is running at ${port}`)
@@ -72,7 +78,7 @@ mongoose.connect('mongodb+srv://jaimevalenciav:Infoadmin08@ecommerce.rt5ptyc.mon
         console.log("Error en la conexión ", error)
     });
 
-    app.use("/api/users", userRouter);
+    app.use("/api/usersRouter", userRouter);
     app.use("/api/products", productRouter);
     app.use("/api/carts", cartRouter);
     

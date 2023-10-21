@@ -1,10 +1,15 @@
-const {Router} = require('express')
-const mongoosePaginate = require('mongoose-paginate-v2');
-const {cartModel} = require('../models/carts.model')
+import { Router } from 'express'
+import { getCart, getCartById, createCart, resolveCart} from '../controllers/carts.controllers.js' 
+
 
 const router = Router()
 
-router.get("/", async (req, res) => {
+router.get("/", getCart)
+router.get("/:cid/product", getCartById)
+router.post("/", createCart)
+router.put("/:cid", resolveCart)
+
+/* router.get("/", async (req, res) => {
     const page = parseInt(req.query.page) || 1; 
     const limit = parseInt(req.query.limit) || 10; 
     try {
@@ -21,10 +26,14 @@ router.get("/", async (req, res) => {
         console.log(error)
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al obtener los carritos paginados." });
     }
-});
+}); */
+
+/* router.get("/", 
+    cartsController.getAllCarts
+    ) */
 
 
-router.post("/", async (req, res) => {
+/* router.post("/", async (req, res) => {
     const { products } = req.body; 
     try {        
         const newCart = new cartModel({ products });        
@@ -33,12 +42,14 @@ router.post("/", async (req, res) => {
     } catch (error) {
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al crear el carrito." });
     }
-});
+}); */
+/* router.get("/",
+    cartsController.createCart
+    ) */
 
 
 
-
-router.put("/:cid", async(req, res) =>{
+/* router.put("/:cid", async(req, res) =>{
     let { cid } = req.params
 
     let productToReplace = req.body
@@ -47,9 +58,9 @@ router.put("/:cid", async(req, res) =>{
     }
     let result = await productModel.updateOne({_id: pid}, productToReplace)
     res.send({result: "Success", payload: result})
-})
+}) */
 
-router.delete("/:cartId/products/:pId", async (req, res) => {
+/* router.delete("/:cartId/products/:pId", async (req, res) => {
     const cartId = req.params.cartId;
     const pId = req.params.pId;
 
@@ -73,9 +84,9 @@ router.delete("/:cartId/products/:pId", async (req, res) => {
     } catch (error) {
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al eliminar el producto del carrito." });
     }
-});
+}); */
 
-router.put("/:cartId/products/:pId", async (req, res) => {
+/* router.put("/:cartId/products/:pId", async (req, res) => {
     const cartId = req.params.cartId;
     const pId = req.params.pId;
     const newQuantity = req.body.quantity; 
@@ -101,10 +112,10 @@ router.put("/:cartId/products/:pId", async (req, res) => {
     } catch (error) {
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al actualizar la cantidad del producto en el carrito." });
     }
-});
+}); */
 
 
-router.delete("/:cartId", async (req, res) => {
+/* router.delete("/:cartId", async (req, res) => {
     const cartId = req.params.cartId;
 
     try {
@@ -122,8 +133,8 @@ router.delete("/:cartId", async (req, res) => {
     } catch (error) {
         res.status(500).send({ result: "Error", message: "Ha ocurrido un error al eliminar los productos del carrito." })
     }
-});
+}); */
+
+export default router
 
 
-
-module.exports = router
