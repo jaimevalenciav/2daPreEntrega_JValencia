@@ -3,9 +3,9 @@ import express from 'express'
 //const { userModel } = require('../models/users.model')
 import { Router } from 'express'
 import { getUsers, getUserById, saveUser } from '../controllers/users.controller.js'
-import jwt from 'jsonwebtoken'
+/* import jwt from 'jsonwebtoken'
 import {createHash, isValidatePassword } from '../../utils.js'
-import passport from 'passport'
+import passport from 'passport' */
 //import router from express.Router
 
 

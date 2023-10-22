@@ -20,4 +20,14 @@ export default class User {
             return null
         }
     }
+
+    saveUser = async(user) => {
+        try {
+            let result = await userModel.create(user)
+            return result
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    }
 }
